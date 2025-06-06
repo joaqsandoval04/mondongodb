@@ -25,6 +25,15 @@ fecha_apertura DATE,
 tipo_cuenta VARCHAR(10)
 );
 
+create table TRANSACCION(
+	n_transaccion INTEGER primary key,
+	cuenta_asociada INTEGER references CUENTA_ASOCIADA(id_cuenta),
+    cuenta_destino INTEGER references CUENTA_ASOCIADA(id_cuenta),,
+	fecha DATE,
+	estado_transaccion BOOL,
+	monto INTEGER,
+);
+
 create table CUENTA_AHORRO(
 id_cuenta INTEGER primary key references CUENTA_BANCARIA(id_cuenta),
 interes REAL
@@ -71,10 +80,6 @@ create table PLAZO_INDEFINIDO(
 id_inversion_indefinido INTEGER primary key references INVERSION(id_inversion)
 ); 
 
-create table RENOVAR(
-id_plazo_renovable INTEGER primary key references PLAZO_RENOVABLE(id_inversion_renovable)
-); 
-
 create table PRESTAMO_O_CREDITO(
 id_prestamo INTEGER primary key,
 rut_cliente INTEGER references CLIENTE(rut),
@@ -90,6 +95,23 @@ fecha_inicio DATE
 create table CUOTAS(
 id_cuota INTEGER primary key,
 id_prestamo INTEGER references PRESTAMO_O_CREDITO(id_prestamo),
+id_cuenta INTEGER references CUENTA_BANCARIA(id_cuenta),
 estado BOOL,
 fecha_vencimiento DATE
 ) 
+
+create table EMPLEADO (
+	rut INTEGER primary key,
+	sucursal INTEGER,
+	salario INTEGER,
+	cargo varchar(15),
+	nombre varchar(30),
+	fecha_contrato DATE
+);
+
+create table SUCURSAL(
+	id_empresa INTEGER primary key,
+	ubicacion varchar(30),
+	fecha_inicio TIME,
+	fecha_fin TIME
+);
