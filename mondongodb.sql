@@ -104,7 +104,7 @@ create table CUOTAS(
 
 create table EMPLEADO(
      rut INTEGER primary key,
-     sucursal INTEGER,
+     sucursal INTEGER references SUCURSAL(id_empresa),
      salario INTEGER,
      cargo varchar(15),
      nombre varchar(30),
